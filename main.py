@@ -77,14 +77,34 @@ class Currency:
         self.usd_per_yen = rates['USD']
 
 
+def message_handler(username, user_id, start_yen_amount, cost_of_custom_house, delivery_cost, result_in_rub):
+    message = ' '.join([f'User: {username}', '\n',
+                        f'ID: {user_id}', '\n',
+                        # f'[Ссылка на профиль](tg://user?id={user_id})', '\n',
+                        f'Запрошенная сумма в CYN: {start_yen_amount}', '\n',
+                        f'Таможенный сбор: {cost_of_custom_house}', '\n',
+                        f'Доставка: {delivery_cost}', '\n',
+                        f'Итого: {result_in_rub} ₽', '\n',
+                        ])
+    return message
+
+
 def handle_message(update: Update, context: CallbackContext) -> None:
     category = update.message.text
+    user_id = None
+    username = None
     if category in categories:
         update.message.reply_text(f'Вы выбрали категорию [{category}]. Теперь отправьте мне сумму в юанях.')
         context.user_data['category'] = category
 
     else:
         try:
+            user = update.effective_user
+            if user:
+                user_id = user.id  # ID пользователя
+                username = user.username  # Имя пользователя (может быть None)
+                message_text = f"Ваша ссылка: [Ссылка на профиль](tg://user?id={user_id})"
+
             calculator = Calculator()
             yen_amount = float(update.message.text)
             cost = calculator.cost_calculation(yen_amount, context.user_data['category'])
@@ -97,6 +117,9 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 
             # mention = '[andrewthebuyer](tg://user?id=251890418)'
             # update.message.reply_text(mention, parse_mode='Markdown')
+            message = message_handler(username, user_id, calculator.start_yen_amount, calculator.cost_of_custom_house, calculator.delivery_cost,
+                                      calculator.result_in_rub)
+            context.bot.send_message(chat_id=279478014, text=message)
 
         except ValueError:
             update.message.reply_text('Пожалуйста, отправьте число.')
