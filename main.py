@@ -10,10 +10,6 @@ logger = logging.getLogger(__name__)
 categories = ['🧥 Верхняя одежда', '👟 👜 Обувь/аксессуары', '👕 👖 Одежда']
 keyboard = [[obj] for obj in categories]
 
-delivery = {'Верхняя одежда': 3000,
-            'Обувь': 3500,
-            'Одежда': 2500,}
-
 custom_ratio = 0.15
 profit_ratio = 1.15
 
@@ -31,6 +27,10 @@ class Calculator:
         self.result_in_rub = 0
         self.delivery_cost = 0
 
+        self.delivery_prices = {'Верхняя одежда': 3000,
+                                'Обувь': 3500,
+                                'Одежда': 2500, }
+
     @staticmethod
     def convert_yen_to_rub(yen) -> float:
         return yen * currency.rub_per_yen
@@ -42,6 +42,12 @@ class Calculator:
             self.cost_of_custom_house = yen_amount * custom_ratio
         return self.cost_of_custom_house
 
+    def get_delivery_cost(self, category):
+        for key in self.delivery_prices:
+            if key in category:
+                self.delivery_cost = self.delivery_prices[key]
+        return self.delivery_cost
+
     def cost_calculation(self, yen_amount, category) -> float:  # returns RUBs
         self.start_yen_amount = yen_amount
         self.get_cost_of_custom_house(yen_amount)
@@ -49,7 +55,7 @@ class Calculator:
         yen_amount = (yen_amount + self.cost_of_custom_house) * profit_ratio
         print(f'{yen_amount=}')
         print(f'{category=}')
-        self.delivery_cost = delivery.get(category)
+        self.delivery_cost = self.get_delivery_cost(category)
         print(f'{self.delivery_cost=}')
         self.result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
         print(f'{self.result_in_rub=}')
