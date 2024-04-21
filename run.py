@@ -2,8 +2,8 @@ import logging
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import config
-from helpers import Calculator, Currency, message_handler, push
-from instances import keyboard, categories
+from bot.helpers import Calculator, Currency, message_handler, push
+from bot.instances import keyboard, categories
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.10
 
 RUN mkdir -p /usr/src/buyer_bot/
 RUN apt update
