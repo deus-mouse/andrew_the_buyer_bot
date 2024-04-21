@@ -1,7 +1,7 @@
-FROM python:3.10
+FROM python:3.7-slim
 
 RUN mkdir -p /usr/src/buyer_bot/
-# RUN apt update
+RUN apt update
 
 WORKDIR /usr/src/buyer_bot/
 

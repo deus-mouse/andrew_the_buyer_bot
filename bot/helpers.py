@@ -2,7 +2,7 @@
 
 import requests
 from typing import Union
-from instances import custom_ratio, profit_ratio
+from bot.instances import custom_ratio, profit_ratio
 import config
 import math
 
