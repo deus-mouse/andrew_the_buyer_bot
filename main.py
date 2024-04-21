@@ -45,8 +45,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 
             # mention = '[andrewthebuyer](tg://user?id=251890418)'
             # update.message.reply_text(mention, parse_mode='Markdown')
-
-            push(context, username, user_id, category, calculator)
+            push(context, username, user_id, calculator)
 
         except ValueError:
             update.message.reply_text('Пожалуйста, отправьте число.')
@@ -54,6 +53,8 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 
 def error(update: Update, context: CallbackContext) -> None:
     logger.warning('Update "%s" caused error "%s"', update, context.error)
+    error_message = f"Произошла ошибка: {context.error}"
+    context.bot.send_message(chat_id=config.ADMIN_USER_ID, text=error_message)
 
 
 def main():

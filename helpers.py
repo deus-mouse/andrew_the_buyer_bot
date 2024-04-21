@@ -49,48 +49,43 @@ class Calculator:
         return self.delivery_cost
 
     def cost_calculation(self,context, yen_amount, category) -> float:  # returns RUBs
-        try:
-            self.start_yen_amount = yen_amount
-            print(f'{self.start_yen_amount=}')
+        self.start_yen_amount = yen_amount
+        # print(f'{self.start_yen_amount=}')
 
-            self.get_cost_of_custom_house(yen_amount)
-            print(f'{self.cost_of_custom_house=}')
+        self.get_cost_of_custom_house(yen_amount)
+        # print(f'{self.cost_of_custom_house=}')
 
-            yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
-            print(f'{yen_amount=}')
+        yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
+        # print(f'{yen_amount=}')
 
-            self.profit = self.round_up(self.convert_yen_to_rub(yen_amount * profit_ratio))
-            print(f'{self.profit=}')
+        self.profit = self.round_up(self.convert_yen_to_rub(yen_amount * profit_ratio))
+        # print(f'{self.profit=}')
 
-            yen_amount += self.profit  # yen_amount + custom + profit
-            print(f'{yen_amount=}')
+        yen_amount += self.profit  # yen_amount + custom + profit
+        # print(f'{yen_amount=}')
 
-            self.delivery_cost = self.get_delivery_cost(category)
-            print(f'{self.delivery_cost=}')
+        self.delivery_cost = self.get_delivery_cost(category)
+        # print(f'{self.delivery_cost=}')
 
-            result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
-            print(f'{result_in_rub=}')
+        result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
+        # print(f'{result_in_rub=}')
 
-            self.result_in_rub = self.round_up(result_in_rub)
-            print(f'{self.result_in_rub=}')
+        self.result_in_rub = self.round_up(result_in_rub)
+        # print(f'{self.result_in_rub=}')
 
-            return self.result_in_rub
-
-        except Exception as exception:
-            print(f'{exception=}')
-            context.bot.send_message(chat_id=279478014, text=exception)
+        return self.result_in_rub
 
     @staticmethod
     def round_up(value: Union[int, float]) -> int:
         return math.ceil(value)
 
 
-def message_handler(username, user_id, category, calculator: Calculator):
+def message_handler(username, user_id, calculator: Calculator):
     message = ''.join([f'User: {username}', '\n',
                        f'ID: {user_id}', '\n',
                        # f'[Ссылка на профиль](tg://user?id={user_id})', '\n',
                        f'Запрошенная сумма в CYN: {calculator.start_yen_amount}', '\n',
-                       f'Категория: {category}', '\n',
+                       # f'Категория: {category}', '\n',
                        f'Таможенный сбор: {calculator.cost_of_custom_house}', '\n',
                        f'Profit: {calculator.profit} ₽', '\n',
                        f'Доставка: {calculator.delivery_cost}', '\n',
@@ -99,7 +94,7 @@ def message_handler(username, user_id, category, calculator: Calculator):
     return message
 
 
-def push(context, username, user_id, category, calculator):
-    message = message_handler(username, user_id, category, calculator)
+def push(context, username, user_id, calculator):
+    message = message_handler(username, user_id, calculator)
     for subscriber in config.subscribers:
         context.bot.send_message(chat_id=subscriber, text=message)
