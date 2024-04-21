@@ -11,8 +11,12 @@ categories = ['🧥 Верхняя одежда', '👟 👜 Обувь/аксе
 keyboard = [[obj] for obj in categories]
 
 custom_ratio = 0.15
-profit_ratio = 1.15
+profit_ratio = 0.15
 
+subscribers = {
+    5965577242: 'andrewthebuyer',
+    279478014: 'deusmouse',
+               }
 
 def start(update: Update, context: CallbackContext) -> None:
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=True)
@@ -26,7 +30,7 @@ class Calculator:
         self.cost_of_custom_house = 0
         self.result_in_rub = 0
         self.delivery_cost = 0
-
+        self.profit = 0
         self.delivery_prices = {'Верхняя одежда': 3000,
                                 'Обувь': 3500,
                                 'Одежда': 2500, }
@@ -52,7 +56,9 @@ class Calculator:
         self.start_yen_amount = yen_amount
         self.get_cost_of_custom_house(yen_amount)
         print(f'{self.cost_of_custom_house=}')
-        yen_amount = (yen_amount + self.cost_of_custom_house) * profit_ratio
+        yen_amount = (yen_amount + self.cost_of_custom_house)
+        self.profit = yen_amount * profit_ratio
+        yen_amount += self.profit
         print(f'{yen_amount=}')
         print(f'{category=}')
         self.delivery_cost = self.get_delivery_cost(category)
@@ -77,12 +83,14 @@ class Currency:
         self.usd_per_yen = rates['USD']
 
 
-def message_handler(username, user_id, start_yen_amount, cost_of_custom_house, delivery_cost, result_in_rub):
+def message_handler(username, user_id, start_yen_amount, cost_of_custom_house, delivery_cost, result_in_rub, profit):
+
     message = ''.join([f'User: {username}', '\n',
                         f'ID: {user_id}', '\n',
                         # f'[Ссылка на профиль](tg://user?id={user_id})', '\n',
                         f'Запрошенная сумма в CYN: {start_yen_amount}', '\n',
                         f'Таможенный сбор: {cost_of_custom_house}', '\n',
+                        f'Profit: {profit}', '\n',
                         f'Доставка: {delivery_cost}', '\n',
                         f'Итого: {result_in_rub} ₽', '\n',
                         ])
@@ -118,9 +126,10 @@ def handle_message(update: Update, context: CallbackContext) -> None:
             # mention = '[andrewthebuyer](tg://user?id=251890418)'
             # update.message.reply_text(mention, parse_mode='Markdown')
             message = message_handler(username, user_id, calculator.start_yen_amount, calculator.cost_of_custom_house, calculator.delivery_cost,
-                                      calculator.result_in_rub)
+                                      calculator.result_in_rub, calculator.profit)
+
             context.bot.send_message(chat_id=279478014, text=message)
-            context.bot.send_message(chat_id=251890418, text=message)
+            context.bot.send_message(chat_id=5965577242, text=message)
 
         except ValueError:
             update.message.reply_text('Пожалуйста, отправьте число.')
