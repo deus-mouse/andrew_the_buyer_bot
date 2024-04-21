@@ -46,8 +46,8 @@ def handle_message(update: Update, context: CallbackContext) -> None:
             # update.message.reply_text(mention, parse_mode='Markdown')
             message = message_handler(username, user_id, calculator)
 
-            context.bot.send_message(chat_id=279478014, text=message)
-            context.bot.send_message(chat_id=5965577242, text=message)
+            for subscriber in config.subscribers:
+                context.bot.send_message(chat_id=subscriber, text=message)
 
         except ValueError:
             update.message.reply_text('Пожалуйста, отправьте число.')
