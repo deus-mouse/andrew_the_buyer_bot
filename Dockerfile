@@ -1,12 +1,12 @@
 FROM python:3.7
 
-RUN mkdir -p /usr/src/andrew_the_buyer_bot/
+RUN mkdir -p /usr/src/buyer_bot/
 RUN apt update
 
-WORKDIR /usr/src/andrew_the_buyer_bot/
+WORKDIR /usr/src/buyer_bot/
 
 
-COPY . /usr/src/andrew_the_buyer_bot/
+COPY . /usr/src/buyer_bot/
 RUN pip install --no-cache-dir -r req.txt
 
 # EXPOSE 8081
