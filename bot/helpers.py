@@ -51,25 +51,15 @@ class Calculator:
 
     def cost_calculation(self, context, yen_amount, category) -> float:  # returns RUBs
         self.start_yen_amount = yen_amount
-        # print(f'{self.start_yen_amount=}')
-
         self.get_cost_of_custom_house(yen_amount)
-        # print(f'{self.cost_of_custom_house=}')
 
         yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
-        # print(f'{yen_amount=}')
 
-        self.profit = self.convert_yen_to_rub(yen_amount * profit_ratio)
-        # print(f'{self.profit=}')
-
+        self.profit = int(self.convert_yen_to_rub(yen_amount * profit_ratio))
         self.delivery_cost = self.get_delivery_cost(category)
-        # print(f'{self.delivery_cost=}')
 
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.profit
-        # print(f'{result_in_rub=}')
-
         self.result_in_rub = self.round_up(result_in_rub)
-        # print(f'{self.result_in_rub=}')
 
         return self.result_in_rub
 
@@ -85,7 +75,7 @@ def message_handler(username, user_id, calculator: Calculator):
                        f'Запрошенная сумма в CYN: {calculator.start_yen_amount}', '\n',
                        # f'Категория: {category}', '\n',
                        f'Таможенный сбор: {calculator.cost_of_custom_house}', '\n',
-                       f'Profit: {calculator.profit} ₽', '\n',
+                       # f'Profit: {calculator.profit} ₽', '\n',
                        f'Доставка: {calculator.delivery_cost}', '\n',
                        f'Итого: {calculator.result_in_rub} ₽', '\n',
                        ])
@@ -93,6 +83,8 @@ def message_handler(username, user_id, calculator: Calculator):
 
 
 def push(context, username, user_id, calculator):
+    print('PUSH')
     message = message_handler(username, user_id, calculator)
     for subscriber in config.subscribers:
+        print(f'{subscriber=}')
         context.bot.send_message(chat_id=subscriber, text=message)
