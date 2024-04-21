@@ -83,8 +83,6 @@ def message_handler(username, user_id, calculator: Calculator):
 
 
 def push(context, username, user_id, calculator):
-    print('PUSH')
     message = message_handler(username, user_id, calculator)
     for subscriber in config.subscribers:
-        print(f'{subscriber=}')
         context.bot.send_message(chat_id=subscriber, text=message)
