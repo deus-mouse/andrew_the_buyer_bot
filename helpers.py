@@ -1,6 +1,21 @@
 import requests
 from instances import custom_ratio, profit_ratio
 import config
+import math
+
+
+class Currency:
+    def __init__(self):
+        self.rub_per_yen: float = 0
+        self.usd_per_yen: float = 0
+        self.init()
+
+    def init(self):
+        # Получение текущего курса йены к рублю / к usd
+        response = requests.get('https://api.exchangerate-api.com/v4/latest/CNY')
+        rates = response.json()['rates']
+        self.rub_per_yen = rates['RUB']
+        self.usd_per_yen = rates['USD']
 
 
 class Calculator:
@@ -39,22 +54,9 @@ class Calculator:
         self.profit = yen_amount * profit_ratio
         yen_amount += self.profit
         self.delivery_cost = self.get_delivery_cost(category)
-        self.result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
+        result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
+        self.result_in_rub = round_up(result_in_rub)
         return self.result_in_rub
-
-
-class Currency:
-    def __init__(self):
-        self.rub_per_yen: float = 0
-        self.usd_per_yen: float = 0
-        self.init()
-
-    def init(self):
-        # Получение текущего курса йены к рублю / к usd
-        response = requests.get('https://api.exchangerate-api.com/v4/latest/CNY')
-        rates = response.json()['rates']
-        self.rub_per_yen = rates['RUB']
-        self.usd_per_yen = rates['USD']
 
 
 def message_handler(username, user_id, calculator: Calculator):
@@ -74,3 +76,7 @@ def push(context, username, user_id, calculator):
     message = message_handler(username, user_id, calculator)
     for subscriber in config.subscribers:
         context.bot.send_message(chat_id=subscriber, text=message)
+
+
+def round_up(value: float) -> int:
+    return math.ceil(value)
