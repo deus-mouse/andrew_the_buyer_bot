@@ -78,7 +78,7 @@ class Currency:
 
 
 def message_handler(username, user_id, start_yen_amount, cost_of_custom_house, delivery_cost, result_in_rub):
-    message = ' '.join([f'User: {username}', '\n',
+    message = ''.join([f'User: {username}', '\n',
                         f'ID: {user_id}', '\n',
                         # f'[Ссылка на профиль](tg://user?id={user_id})', '\n',
                         f'Запрошенная сумма в CYN: {start_yen_amount}', '\n',
@@ -103,7 +103,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
             if user:
                 user_id = user.id  # ID пользователя
                 username = user.username  # Имя пользователя (может быть None)
-                message_text = f"Ваша ссылка: [Ссылка на профиль](tg://user?id={user_id})"
+                # message_text = f"Ваша ссылка: [Ссылка на профиль](tg://user?id={user_id})"
 
             calculator = Calculator()
             yen_amount = float(update.message.text)
@@ -120,6 +120,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
             message = message_handler(username, user_id, calculator.start_yen_amount, calculator.cost_of_custom_house, calculator.delivery_cost,
                                       calculator.result_in_rub)
             context.bot.send_message(chat_id=279478014, text=message)
+            context.bot.send_message(chat_id=251890418, text=message)
 
         except ValueError:
             update.message.reply_text('Пожалуйста, отправьте число.')
