@@ -59,16 +59,13 @@ class Calculator:
         yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
         # print(f'{yen_amount=}')
 
-        self.profit = self.round_up(self.convert_yen_to_rub(yen_amount * profit_ratio))
+        self.profit = self.convert_yen_to_rub(yen_amount * profit_ratio)
         # print(f'{self.profit=}')
-
-        yen_amount += self.profit  # yen_amount + custom + profit
-        # print(f'{yen_amount=}')
 
         self.delivery_cost = self.get_delivery_cost(category)
         # print(f'{self.delivery_cost=}')
 
-        result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
+        result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.profit
         # print(f'{result_in_rub=}')
 
         self.result_in_rub = self.round_up(result_in_rub)
