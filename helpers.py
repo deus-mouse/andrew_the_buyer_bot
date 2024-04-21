@@ -1,5 +1,5 @@
 import requests
-from instances import *
+from instances import custom_ratio, profit_ratio
 
 
 class Calculator:
