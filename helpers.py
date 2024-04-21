@@ -51,11 +51,14 @@ class Calculator:
         self.get_cost_of_custom_house(yen_amount)
         yen_amount = (yen_amount + self.cost_of_custom_house)
         self.profit = yen_amount * profit_ratio
-        yen_amount += self.profit
+        yen_amount += self.round_up(self.profit)
         self.delivery_cost = self.get_delivery_cost(category)
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
-        self.result_in_rub = round_up(result_in_rub)
+        self.result_in_rub = self.round_up(result_in_rub)
         return self.result_in_rub
+
+    def round_up(value: float) -> int:
+        return math.ceil(value)
 
 
 def message_handler(username, user_id, calculator: Calculator):
@@ -71,11 +74,8 @@ def message_handler(username, user_id, calculator: Calculator):
     return message
 
 
+
 def push(context, username, user_id, calculator):
     message = message_handler(username, user_id, calculator)
     for subscriber in config.subscribers:
         context.bot.send_message(chat_id=subscriber, text=message)
-
-
-def round_up(value: float) -> int:
-    return math.ceil(value)
