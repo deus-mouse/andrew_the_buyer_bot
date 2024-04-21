@@ -30,8 +30,7 @@ class Calculator:
                                 'Обувь': 3500,
                                 'Одежда': 2500, }
 
-    @staticmethod
-    def convert_yen_to_rub(yen) -> float:
+    def convert_yen_to_rub(self, yen) -> float:
         return yen * self.currency.rub_per_yen
 
     def get_cost_of_custom_house(self, yen_amount: int) -> float:
