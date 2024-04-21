@@ -1,4 +1,5 @@
-FROM python:3.10
+# FROM python:3.10
+FROM python:3.10-alpine
 
 RUN mkdir -p /usr/src/buyer_bot/
 RUN apt update

@@ -1,6 +1,7 @@
-from typing import Union
+
 
 import requests
+from typing import Union
 from instances import custom_ratio, profit_ratio
 import config
 import math
