@@ -35,7 +35,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
             currency = Currency()
             calculator = Calculator(currency)
             yen_amount = float(update.message.text)
-            cost = calculator.cost_calculation(yen_amount, context.user_data['category'])
+            cost = calculator.cost_calculation(context, yen_amount, context.user_data['category'])
 
             update.message.reply_text(
                 f'Cтоимость с доставкой в Москву {cost} рублей.\n\n'

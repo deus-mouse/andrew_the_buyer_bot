@@ -46,21 +46,29 @@ class Calculator:
                 self.delivery_cost = self.delivery_prices[key]
         return self.delivery_cost
 
-    def cost_calculation(self, yen_amount, category) -> float:  # returns RUBs
-        self.start_yen_amount = yen_amount
-        self.get_cost_of_custom_house(yen_amount)
+    def cost_calculation(self,context, yen_amount, category) -> float:  # returns RUBs
+        try:
+            self.start_yen_amount = yen_amount
 
-        yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
+            self.get_cost_of_custom_house(yen_amount)
 
-        self.profit = self.round_up(self.convert_yen_to_rub(yen_amount * profit_ratio))
+            yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
 
-        yen_amount += self.profit  # yen_amount + custom + profit
+            # self.profit = self.round_up(self.convert_yen_to_rub(yen_amount * profit_ratio))
+            self.profit = self.round_up(self.convert_yen_to_rub(yen_amount * profit_ratio))
 
-        self.delivery_cost = self.get_delivery_cost(category)
+            yen_amount += self.profit  # yen_amount + custom + profit
 
-        result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
-        self.result_in_rub = self.round_up(result_in_rub)
-        return self.result_in_rub
+            self.delivery_cost = self.get_delivery_cost(category)
+
+            result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
+            self.result_in_rub = self.round_up(result_in_rub)
+
+            return self.result_in_rub
+
+        except Exception as exception:
+            print(f'{exception=}')
+            context.bot.send_message(chat_id=279478014, text=exception)
 
     def round_up(value: float, int) -> int:
         return math.ceil(value)
@@ -77,7 +85,6 @@ def message_handler(username, user_id, calculator: Calculator):
                        f'Итого: {calculator.result_in_rub} ₽', '\n',
                        ])
     return message
-
 
 
 def push(context, username, user_id, calculator):
