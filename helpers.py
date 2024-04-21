@@ -1,5 +1,6 @@
 import requests
 from instances import custom_ratio, profit_ratio
+import config
 
 
 class Calculator:
@@ -73,3 +74,9 @@ def message_handler(username, user_id, calculator: Calculator):
                        f'Итого: {calculator.result_in_rub} ₽', '\n',
                        ])
     return message
+
+
+def push(context, username, user_id, calculator):
+    message = message_handler(username, user_id, calculator)
+    for subscriber in config.subscribers:
+        context.bot.send_message(chat_id=subscriber, text=message)

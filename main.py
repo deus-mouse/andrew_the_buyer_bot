@@ -2,7 +2,7 @@ import logging
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import config
-from helpers import Calculator, Currency
+from helpers import Calculator, Currency, message_handler, push
 from instances import keyboard, categories
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -45,10 +45,8 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 
             # mention = '[andrewthebuyer](tg://user?id=251890418)'
             # update.message.reply_text(mention, parse_mode='Markdown')
-            message = message_handler(username, user_id, calculator)
 
-            for subscriber in config.subscribers:
-                context.bot.send_message(chat_id=subscriber, text=message)
+            push(context, username, user_id, calculator)
 
         except ValueError:
             update.message.reply_text('Пожалуйста, отправьте число.')
