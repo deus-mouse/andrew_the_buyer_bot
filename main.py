@@ -46,7 +46,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
             # mention = '[andrewthebuyer](tg://user?id=251890418)'
             # update.message.reply_text(mention, parse_mode='Markdown')
 
-            push(context, username, user_id, calculator)
+            push(context, username, user_id, category, calculator)
 
         except ValueError:
             update.message.reply_text('Пожалуйста, отправьте число.')
