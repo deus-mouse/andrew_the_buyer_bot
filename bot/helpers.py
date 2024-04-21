@@ -77,7 +77,7 @@ class Calculator:
 
     @staticmethod
     def round_up(value: Union[int, float]) -> int:
-        return math.ceil(value)
+        return math.ceil(value / 100) * 100
 
 
 def message_handler(username, user_id, calculator: Calculator):
