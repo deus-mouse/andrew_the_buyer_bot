@@ -48,7 +48,7 @@ class Calculator:
                 self.delivery_cost = self.delivery_prices[key]
         return self.delivery_cost
 
-    def cost_calculation(self,context, yen_amount, category) -> float:  # returns RUBs
+    def cost_calculation(self, context, yen_amount, category) -> float:  # returns RUBs
         self.start_yen_amount = yen_amount
         # print(f'{self.start_yen_amount=}')
 
