@@ -49,15 +49,20 @@ class Calculator:
     def cost_calculation(self, yen_amount, category) -> float:  # returns RUBs
         self.start_yen_amount = yen_amount
         self.get_cost_of_custom_house(yen_amount)
-        yen_amount = (yen_amount + self.cost_of_custom_house)
-        self.profit = yen_amount * profit_ratio
-        yen_amount += self.round_up(self.profit)
+
+        yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
+
+        self.profit = self.round_up(self.convert_yen_to_rub(yen_amount * profit_ratio))
+
+        yen_amount += self.profit  # yen_amount + custom + profit
+
         self.delivery_cost = self.get_delivery_cost(category)
+
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost
         self.result_in_rub = self.round_up(result_in_rub)
         return self.result_in_rub
 
-    def round_up(value: float) -> int:
+    def round_up(value: float, int) -> int:
         return math.ceil(value)
 
 
