@@ -2,7 +2,7 @@
 FROM python:3.10-alpine
 
 RUN mkdir -p /usr/src/buyer_bot/
-RUN apt update
+# RUN apt update
 
 WORKDIR /usr/src/buyer_bot/
 
