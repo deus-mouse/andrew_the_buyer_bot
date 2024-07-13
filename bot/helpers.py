@@ -11,6 +11,7 @@ class Currency:
     def __init__(self):
         self.rub_per_yen: float = 0
         self.usd_per_yen: float = 0
+        self.euro_per_yen: float = 0
         self.init()
 
     def init(self):
@@ -20,7 +21,7 @@ class Currency:
         print(f'{rates=}')
         self.rub_per_yen = rates['RUB']
         self.usd_per_yen = rates['USD']
-        self.euro_per_yen = rates['USD']
+        self.euro_per_yen = rates['EUR']
 
 
 class Calculator:
