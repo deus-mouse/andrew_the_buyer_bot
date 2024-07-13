@@ -70,6 +70,15 @@ class Calculator:
     def round_up(value: Union[int, float]) -> int:
         return math.ceil(value / 100) * 100
 
+    def over_limit(self, yen_amount, currency):
+        limit = 200
+
+        total = yen_amount * currency
+        if total > limit:
+            return True
+        else:
+            return False
+
 
 def message_handler(username, user_id, calculator: Calculator):
     message = ''.join([f'User: {username}', '\n',
