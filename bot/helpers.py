@@ -18,7 +18,6 @@ class Currency:
         # Получение текущего курса йены к рублю / к usd
         response = requests.get('https://api.exchangerate-api.com/v4/latest/CNY')
         rates = response.json()['rates']
-        print(f'{rates=}')
         self.rub_per_yen = rates['RUB']
         self.usd_per_yen = rates['USD']
         self.euro_per_yen = rates['EUR']
@@ -43,7 +42,6 @@ class Calculator:
         # таможенный сбор
         if self.over_limit(yen_amount, self.currency.euro_per_yen):
             self.cost_of_custom_house = yen_amount * custom_ratio
-        print(f'{self.cost_of_custom_house=}')
         return self.cost_of_custom_house
 
     def get_delivery_cost(self, category):
