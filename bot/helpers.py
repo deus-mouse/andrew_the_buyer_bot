@@ -41,9 +41,6 @@ class Calculator:
 
     def get_cost_of_custom_house(self, yen_amount: int) -> float:
         # таможенный сбор
-        # usd = yen_amount * self.currency.usd_per_yen
-        # if usd > 190:
-
         if self.over_limit(yen_amount, self.currency.euro_per_yen):
             self.cost_of_custom_house = yen_amount * custom_ratio
         return self.cost_of_custom_house

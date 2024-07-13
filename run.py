@@ -57,6 +57,7 @@ def error(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Произошла ошибка подключения к серверу. '
                               'Пожалуйста, повторите попытку или попробуйте чуть позже')
 
+
 def main():
     updater = Updater(config.BOT_TOKEN, use_context=True)
 
