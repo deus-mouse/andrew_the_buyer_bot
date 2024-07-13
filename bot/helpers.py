@@ -43,6 +43,7 @@ class Calculator:
         # таможенный сбор
         if self.over_limit(yen_amount, self.currency.euro_per_yen):
             self.cost_of_custom_house = yen_amount * custom_ratio
+        print(f'{self.cost_of_custom_house=}')
         return self.cost_of_custom_house
 
     def get_delivery_cost(self, category):
