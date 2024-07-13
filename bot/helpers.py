@@ -69,7 +69,7 @@ class Calculator:
         return math.ceil(value / 100) * 100
 
     def over_limit(self, yen_amount, currency):
-        limit = 200
+        limit = 190
         total = yen_amount * currency
         if total > limit:
             return True
