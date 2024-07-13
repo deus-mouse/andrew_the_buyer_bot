@@ -38,11 +38,11 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 
             update.message.reply_text(
                 f'Cтоимость с доставкой в Москву {cost} рублей.\n\n'
-                f'Cамовывоз г. Москва ЖК Матч Поинт или доставка СДЭК 500р.\n\n'
+                f'Cамовывоз г. Москва ЖК Матч Поинт или доставка СДЭК 700р.\n\n'
                 f'Среднее время доставки до Москвы 3 недели.\n\n'
                 f'Для заказа напиши https://t.me/andrewthebuyer')
 
-            # mention = '[andrewthebuyer](tg://user?id=251890418)'
+            # mention = '[andrewthebuyer](tg://user?id=251890418)'1000
             # update.message.reply_text(mention, parse_mode='Markdown')
             push(context, username, user_id, calculator)
 
@@ -54,7 +54,8 @@ def error(update: Update, context: CallbackContext) -> None:
     logger.warning('Update "%s" caused error "%s"', update, context.error)
     error_message = f"Произошла ошибка: {context.error}"
     context.bot.send_message(chat_id=config.ADMIN_USER_ID, text=error_message)
-
+    update.message.reply_text('Произошла ошибка подключения к серверу. '
+                              'Пожалуйста, повторите попытку или попробуйте чуть позже')
 
 def main():
     updater = Updater(config.BOT_TOKEN, use_context=True)
