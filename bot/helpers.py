@@ -19,6 +19,7 @@ class Currency:
         rates = response.json()['rates']
         self.rub_per_yen = rates['RUB']
         self.usd_per_yen = rates['USD']
+        self.euro_per_yen = rates['USD']
 
 
 class Calculator:
