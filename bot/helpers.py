@@ -19,7 +19,7 @@ class Currency:
         response = requests.get('https://api.exchangerate-api.com/v4/latest/CNY')
         rates = response.json()['rates']
         # self.rub_per_yen = rates['RUB']
-        self.usd_per_yen = rates['USD']
+        # self.usd_per_yen = rates['USD']
         # self.euro_per_yen = rates['EUR']
 
 
