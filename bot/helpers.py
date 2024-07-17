@@ -60,7 +60,6 @@ class Calculator:
         self.profit = int(self.convert_yen_to_rub(yen_amount * profit_ratio))
 
         self.delivery_cost = self.get_delivery_cost(category)
-        print(f'{self.delivery_cost = }')
 
         print(f'{self.convert_yen_to_rub(yen_amount) = }')
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.profit
