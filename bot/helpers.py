@@ -74,7 +74,6 @@ class Calculator:
     def over_limit(self, yen_amount, currency):
         limit = 190
         total = yen_amount * currency
-        print(f'{total = }')
         if total > limit:
             return True
         else:
