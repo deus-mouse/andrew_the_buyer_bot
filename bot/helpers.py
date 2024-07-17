@@ -52,14 +52,23 @@ class Calculator:
 
     def cost_calculation(self, context, yen_amount, category) -> float:  # returns RUBs
         self.start_yen_amount = yen_amount
+
+        print(f'{self.start_yen_amount = }')
+
         self.get_cost_of_custom_house(yen_amount)
+        print(f'{self.cost_of_custom_house = }')
 
         yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
+        print(f'{yen_amount = }')
 
         self.profit = int(self.convert_yen_to_rub(yen_amount * profit_ratio))
+        print(f'{self.profit = }')
+
         self.delivery_cost = self.get_delivery_cost(category)
+        print(f'{self.delivery_cost = }')
 
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.profit
+
         self.result_in_rub = self.round_up(result_in_rub)
 
         return self.result_in_rub
@@ -71,6 +80,7 @@ class Calculator:
     def over_limit(self, yen_amount, currency):
         limit = 190
         total = yen_amount * currency
+        print(f'{total = }')
         if total > limit:
             return True
         else:
