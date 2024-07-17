@@ -61,7 +61,6 @@ class Calculator:
 
         self.delivery_cost = self.get_delivery_cost(category)
 
-        print(f'{self.convert_yen_to_rub(yen_amount) = }')
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.profit
 
         self.result_in_rub = self.round_up(result_in_rub)
