@@ -53,8 +53,6 @@ class Calculator:
     def cost_calculation(self, context, yen_amount, category) -> float:  # returns RUBs
         self.start_yen_amount = yen_amount
 
-        print(f'{self.start_yen_amount = }')
-
         self.get_cost_of_custom_house(yen_amount)
         print(f'{self.cost_of_custom_house = }')
 
