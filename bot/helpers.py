@@ -95,7 +95,6 @@ def message_handler(username, user_id, calculator: Calculator):
                        # f'[Ссылка на профиль](tg://user?id={user_id})', '\n',
                        f'Запрошенная сумма в CYN: {calculator.start_yen_amount}', '\n',
                        f'Курс: {calculator.currency.rub_per_yen}', '\n',
-
                        # f'Категория: {category}', '\n',
                        f'Таможенный сбор: {calculator.cost_of_custom_house_rub}', '\n',
                        # f'Profit: {calculator.profit} ₽', '\n',
