@@ -55,6 +55,7 @@ class Calculator:
         return self.delivery_cost
 
     def cost_calculation(self, context, yen_amount, category) -> float:  # returns RUBs
+        print(f'{self.currency.rub_per_yen = }')
 
         self.start_yen_amount = yen_amount
         print(f'{self.start_yen_amount = }')
