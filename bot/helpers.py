@@ -54,7 +54,6 @@ class Calculator:
         self.start_yen_amount = yen_amount
 
         self.get_cost_of_custom_house(yen_amount)
-        print(f'{self.cost_of_custom_house = }')
 
         yen_amount = (yen_amount + self.cost_of_custom_house)  # yen_amount + custom
         print(f'{yen_amount = }')
