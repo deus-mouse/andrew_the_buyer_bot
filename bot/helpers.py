@@ -57,8 +57,6 @@ class Calculator:
 
         self.set_cost_of_custom_house(yen_amount)
 
-        yen_amount = (yen_amount + self.cost_of_custom_house_rub)  # yen_amount + custom
-
         self.set_delivery_cost(category)
 
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.cost_of_custom_house_rub + self.profit_rub
