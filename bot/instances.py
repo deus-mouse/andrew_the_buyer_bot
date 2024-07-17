@@ -3,7 +3,7 @@
 categories = ['🧥 Верхняя одежда', '👟 👜 Обувь/аксессуары', '👕 👖 Одежда']
 keyboard = [[obj] for obj in categories]
 
-custom_ratio = 0.15
-profit_ratio = 0.25
+custom_ratio = 0.10
+profit_ratio = 0.30
 
 
