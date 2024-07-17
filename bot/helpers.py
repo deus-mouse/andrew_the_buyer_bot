@@ -38,6 +38,10 @@ class Calculator:
     def convert_yen_to_rub(self, yen) -> float:
         return yen * self.currency.rub_per_yen
 
+    def set_profit(self, yen_amount):
+        self.profit_rub = int(self.convert_yen_to_rub(yen_amount * profit_ratio))
+        return self.profit_rub
+
     def set_cost_of_custom_house(self, yen_amount: int) -> float:
         # таможенный сбор
         if self.over_limit(yen_amount, self.currency.usd_per_yen):
@@ -53,7 +57,7 @@ class Calculator:
     def cost_calculation(self, context, yen_amount, category) -> float:  # returns RUBs
         self.start_yen_amount = yen_amount
 
-        self.profit_rub = int(self.convert_yen_to_rub(yen_amount * profit_ratio))
+        self.set_profit(yen_amount)
 
         self.set_cost_of_custom_house(yen_amount)
 
