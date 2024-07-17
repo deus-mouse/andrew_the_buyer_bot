@@ -55,17 +55,24 @@ class Calculator:
         return self.delivery_cost
 
     def cost_calculation(self, context, yen_amount, category) -> float:  # returns RUBs
+
         self.start_yen_amount = yen_amount
+        print(f'{self.start_yen_amount = }')
 
         self.set_profit(yen_amount)
+        print(f'{self.profit_rub = }')
 
         self.set_cost_of_custom_house(yen_amount)
+        print(f'{self.cost_of_custom_house_rub = }')
 
         self.set_delivery_cost(category)
+        print(f'{self.delivery_cost = }')
 
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.cost_of_custom_house_rub + self.profit_rub
+        print(f'{result_in_rub = }')
 
         self.result_in_rub = self.round_up(result_in_rub)
+        print(f'{self.result_in_rub = }')
 
         return self.result_in_rub
 
@@ -87,6 +94,8 @@ def message_handler(username, user_id, calculator: Calculator):
                        f'ID: {user_id}', '\n',
                        # f'[Ссылка на профиль](tg://user?id={user_id})', '\n',
                        f'Запрошенная сумма в CYN: {calculator.start_yen_amount}', '\n',
+                       f'Курс: {calculator.currency.rub_per_yen}', '\n',
+
                        # f'Категория: {category}', '\n',
                        f'Таможенный сбор: {calculator.cost_of_custom_house_rub}', '\n',
                        # f'Profit: {calculator.profit} ₽', '\n',
