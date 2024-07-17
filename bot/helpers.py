@@ -71,6 +71,7 @@ class Calculator:
         result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.profit
 
         self.result_in_rub = self.round_up(result_in_rub)
+        print(f'{result_in_rub = }')
 
         return self.result_in_rub
 
