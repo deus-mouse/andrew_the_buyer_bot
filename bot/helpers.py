@@ -38,14 +38,13 @@ class Calculator:
     def convert_yen_to_rub(self, yen) -> float:
         return yen * self.currency.rub_per_yen
 
-    def get_cost_of_custom_house(self, yen_amount: int) -> float:
+    def set_cost_of_custom_house(self, yen_amount: int) -> float:
         # таможенный сбор
         if self.over_limit(yen_amount, self.currency.usd_per_yen):
             self.cost_of_custom_house_rub = self.convert_yen_to_rub(yen_amount * custom_ratio)
+        return self.cost_of_custom_house_rub
 
-        return self.convert_yen_to_rub(self.cost_of_custom_house_rub)
-
-    def get_delivery_cost(self, category):
+    def set_delivery_cost(self, category):
         for key in self.delivery_prices:
             if key in category:
                 self.delivery_cost = self.delivery_prices[key]
@@ -56,12 +55,13 @@ class Calculator:
 
         self.profit_rub = int(self.convert_yen_to_rub(yen_amount * profit_ratio))
 
-        self.get_cost_of_custom_house(yen_amount)
+        self.set_cost_of_custom_house(yen_amount)
+
         yen_amount = (yen_amount + self.cost_of_custom_house_rub)  # yen_amount + custom
 
-        self.delivery_cost = self.get_delivery_cost(category)
+        self.set_delivery_cost(category)
 
-        result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.profit_rub
+        result_in_rub = self.convert_yen_to_rub(yen_amount) + self.delivery_cost + self.cost_of_custom_house_rub + self.profit_rub
 
         self.result_in_rub = self.round_up(result_in_rub)
 
